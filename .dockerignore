@@ -1,0 +1,9 @@
+.git
+.gitignore
+.gitlab-ci.yml
+
+README.md
+VERSION
+IMAGE
+LICENSE
+Makefile

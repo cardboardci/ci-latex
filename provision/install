@@ -1,0 +1,20 @@
+#!/bin/sh
+set -e
+cd /tmp/
+
+URL=http://ctan.sharelatex.com/tex-archive/systems/texlive/tlnet/install-tl-unx.tar.gz
+FILE=/tmp/install-tl-unx.tar.gz
+
+apk --no-cache -U add gnupg 
+apk --update add --virtual build-dependencies wget tar perl xz fontconfig-dev 
+
+mkdir texlive 
+cd texlive
+
+wget -qO- $URL | tar -xz -C /tmp/texlive --strip-components=1
+echo "selected_scheme scheme-medium" >> texlive.profile
+echo "option_doc 0" >> texlive.profile
+echo "option_src 0" >> texlive.profile
+/tmp/texlive/install-tl --profile=/tmp/texlive/texlive.profile
+
+apk del build-dependencies
