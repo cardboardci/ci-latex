@@ -12,7 +12,7 @@ mkdir texlive
 cd texlive
 
 wget -qO- $URL | tar -xz -C /tmp/texlive --strip-components=1
-echo "selected_scheme scheme-medium" >> texlive.profile
+echo "selected_scheme ${SCHEME}" >> texlive.profile
 echo "option_doc 0" >> texlive.profile
 echo "option_src 0" >> texlive.profile
 /tmp/texlive/install-tl --profile=/tmp/texlive/texlive.profile
