@@ -1,5 +1,5 @@
 #!/bin/sh
-set -e
+set -ex
 cd /tmp/
 
 URL=http://ctan.sharelatex.com/tex-archive/systems/texlive/tlnet/install-tl-unx.tar.gz
