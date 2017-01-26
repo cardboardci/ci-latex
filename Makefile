@@ -1,10 +1,9 @@
 IMAGE := $(shell cat IMAGE)
 
-TAG=medium
-TEXLIVE_SCHEME=scheme-medium
+TAG=latest
 
 build:
-	docker build --build-arg BUILD_DATE="$(shell date)" --build-arg VERSION="$(shell cat VERSION)" --build-arg SCHEME='${TEXLIVE_SCHEME}' --pull -t ${IMAGE}:${TAG} .
+	docker build --build-arg BUILD_DATE="$(shell date)" --build-arg VERSION="$(shell cat VERSION)" --build-arg SCHEME="scheme-medium" --pull -t ${IMAGE}:${TAG} .
 clean:
 	docker rmi ${IMAGE}:${TAG}
 rebuild: 
