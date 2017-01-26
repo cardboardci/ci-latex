@@ -18,9 +18,9 @@ compile_pdf:
       - manual.pdf
 ```
 
-## Build Tags
+## Image Tags
 
-Build arguments used in the system.
+Build tags available with the image `jrbeverly/latex:{TAG}`.
 
 | Tag | Description |
 | --- | ----------- |
