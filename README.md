@@ -25,29 +25,35 @@ Build arguments used in the system.
 | Tag | Description |
 | --- | ----------- |
 | basic | A basic scheme (plain and latex) image with packages of `scheme-basic`. |
-| context | A ConTeXt scheme image with packages of `scheme-basic`. |
-| full | A full scheme (everything) image with packages of `scheme-basic`. |
-| gust | A GUST TeX Live scheme image with packages of `scheme-basic`. |
-| medium | A medium scheme (small + more packages and languages) image with packages of `scheme-basic`. |
-| minimal | A minimal scheme (plain only) image with packages of `scheme-basic`. |
-| small | A small scheme (basic + xetex, metapost, a few languages) image with packages of `scheme-basic`. |
-| tetex | A teTeX scheme (more than medium, but nowhere near full) image with packages of `scheme-basic`. |
-| xml | A XML scheme image with packages of `scheme-basic`. |
+| context | A ConTeXt scheme image with packages of `scheme-context`. |
+| full | A full scheme (everything) image with packages of `scheme-full`. |
+| gust | A GUST TeX Live scheme image with packages of `scheme-gust`. |
+| medium | A medium scheme (small + more packages and languages) image with packages of `scheme-medium`. |
+| tetex | A teTeX scheme (more than medium, but nowhere near full) image with packages of `scheme-tetex`. |
+| xml | A XML scheme image with packages of `scheme-xml`. |
 
 ## Build Arguments
 
 Build arguments used in the system.
 
 | Variable | Default | Description |
-| ---------- | -------- | --------------- |
+| -------- | ------- | ----------- |
 | BUILD_DATE | - | The date which the image was built. |
 | VERSION | - | The version of the image. |
+
+## Volumes
+
+Volumes exposed by the docker container.
+
+| Volume | Description |
+| --------------------------| ------------- |
+| /media | A directory for making use of latex build |
 
 ## Environment Variables
 
 Environment variables used in the system.
 
 | Variable | Default | Description |
-| ---------- | -------- | --------------- |
+| -------- | ------- | ----------- |
 | HOME | / | The pathname of the user's home directory. |
 | PATH | /usr/local/texlive/2016/bin/x86_64-linux | The pathname of the texlive binaries. |

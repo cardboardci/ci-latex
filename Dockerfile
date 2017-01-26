@@ -6,7 +6,7 @@ MAINTAINER jrbeverly
 # Arguments used in the build process of the docker container.
 ARG BUILD_DATE
 ARG VERSION
-ARG SCHEME='scheme-medium'
+ARG SCHEME
 
 # Environment Variables
 #
