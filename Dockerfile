@@ -14,7 +14,7 @@ ARG SCHEME='scheme-medium'
 ENV PATH=/usr/local/texlive/2016/bin/x86_64-linux:$PATH
 ENV HOME=/
 
-# Metadata 
+# Metadata
 #
 # The metadata of the image.
 LABEL app="texlive"
@@ -28,9 +28,12 @@ LABEL build_date="${BUILD_DATE}"
 COPY provision/install /tmp/install
 RUN sh /tmp/install; sync; rm -rf /tmp/*
 
-COPY provision/install-tex /tmp/install-tex
-RUN sh /tmp/install-tex; sync; rm -f /tmp/install-tex
+# Volumes
+#
+# Volumes exposed by the docker container
+VOLUME /media
 
 # Options
 #
 # Configuration options of the docker container
+WORKDIR /media

@@ -1,15 +1,15 @@
 IMAGE := $(shell cat IMAGE)
+TAG := $(shell cat TAG)
+
+SCHEME='scheme-medium'
 
 build:
-	docker build --build-arg BUILD_DATE="$(shell date)" --build-arg VERSION="$(shell cat VERSION)" --pull -t ${IMAGE}:latest .
-version:
-    docker build --build-arg BUILD_DATE="$(shell date)" --build-arg VERSION="$(shell cat VERSION)" --build-arg SONEREZH_VERSION="${VERSION}" --pull -t ${IMAGE}:${VERSION} .
+	docker build --build-arg BUILD_DATE="$(shell date)" --build-arg VERSION="$(shell cat VERSION)" --build-arg VERSION="${SCHEME}" --pull -t ${IMAGE}:${TAG} .
 clean:
-	docker rmi ${IMAGE}
+	docker rmi ${IMAGE}:${TAG}
 rebuild: 
-	docker rmi ${IMAGE}
-	docker build -t ${IMAGE} .
+	clean build
 push:
-	docker push ${IMAGE}
+	docker push ${IMAGE}:${TAG}
 all:
 	build

@@ -18,6 +18,22 @@ compile_pdf:
       - manual.pdf
 ```
 
+## Build Tags
+
+Build arguments used in the system.
+
+| Tag | Description |
+| --- | ----------- |
+| basic | A basic scheme (plain and latex) image with packages of `scheme-basic`. |
+| context | A ConTeXt scheme image with packages of `scheme-basic`. |
+| full | A full scheme (everything) image with packages of `scheme-basic`. |
+| gust | A GUST TeX Live scheme image with packages of `scheme-basic`. |
+| medium | A medium scheme (small + more packages and languages) image with packages of `scheme-basic`. |
+| minimal | A minimal scheme (plain only) image with packages of `scheme-basic`. |
+| small | A small scheme (basic + xetex, metapost, a few languages) image with packages of `scheme-basic`. |
+| tetex | A teTeX scheme (more than medium, but nowhere near full) image with packages of `scheme-basic`. |
+| xml | A XML scheme image with packages of `scheme-basic`. |
+
 ## Build Arguments
 
 Build arguments used in the system.
