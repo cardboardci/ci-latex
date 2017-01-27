@@ -11,8 +11,6 @@ before_script:
 
 build:
   stage: build
-  only:
-    - triggers
   script:
     - make build
     - make push
