@@ -7,7 +7,7 @@ stages:
   - build
 
 before_script:
-  - apk --no-cache make
+  - apk --no-cache add make
   - docker login -u $CI_BUILD_USER -p $CI_BUILD_TOKEN
 
 build:
