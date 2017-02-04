@@ -29,6 +29,11 @@ Build tags available with the image `jrbeverly/latex:{TAG}`.
     <th>Description</th>
   </tr>
   <tr>
+    <td><a href="/../tree/master">master</a></td>
+    <td><a href="/../commits/master"><img alt="Build Status" src="/../badges/master/build.svg"/></a></td>
+    <td>A basic scheme (plain and latex) image with packages of default.</td>
+  </tr>
+  <tr>
     <td><a href="/../tree/scheme-basic">basic</a></td>
     <td><a href="/../commits/scheme-basic"><img alt="Build Status" src="/../badges/scheme-basic/build.svg"/></a></td>
     <td>A basic scheme (plain and latex) image with packages of scheme-basic.</td>
