@@ -1,14 +1,24 @@
 IMAGE := jrbeverly/latex
-TAG=latest
-VERSION=0.2.0
+VERSION := 1.0.0
+DATE := $(shell date +%Y-%m-%d:%H:%M:%S)
+
+include Makefile.variable
 
 build:
-	docker build --build-arg BUILD_DATE="$(shell date)" --build-arg VERSION="$(shell cat VERSION)" --build-arg SCHEME="scheme-medium" --pull -t ${IMAGE}:${TAG} .
+	docker build \
+		--build-arg BUILD_DATE="${DATE}" \
+		--build-arg VERSION="${VERSION}" \
+		--build-arg SCHEME="${SCHEME}" \
+		--pull -t ${IMAGE}:${TAG} .
+
 clean:
-	docker rmi ${IMAGE}:${TAG}
-rebuild: 
-	clean build
+	docker rmi --force ${IMAGE}:${TAG}
+
+prune:
+	docker images -q -f dangling=true | xargs --no-run-if-empty docker rmi
+
 push:
 	docker push ${IMAGE}:${TAG}
-all:
-	build
+
+rebuild: clean build
+all: build
