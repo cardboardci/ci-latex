@@ -70,7 +70,9 @@ Build tags available with the image `jrbeverly/latex:{TAG}`.
   </tr>
 </table>
 
-## Build Arguments
+
+## Components
+### Build Arguments
 
 Build arguments used in the system.
 
@@ -79,7 +81,7 @@ Build arguments used in the system.
 | BUILD_DATE | - | The date which the image was built. |
 | VERSION | - | The version of the image. |
 
-## Volumes
+### Volumes
 
 Volumes exposed by the docker container.
 
@@ -87,7 +89,7 @@ Volumes exposed by the docker container.
 | --------------------------| ------------- |
 | /media | A directory for making use of latex build |
 
-## Environment Variables
+### Environment Variables
 
 Environment variables used in the system.
 
