@@ -1,5 +1,5 @@
 # Dockerized Latex
-[![Build Status](https://gitlab.com/jrbeverly-docker/docker-latex/badges/master/build.svg)](https://gitlab.com/jrbeverly-docker/docker-latex/commits/master) [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?maxAge=2592000)](https://gitlab.com/jrbeverly-docker/docker-latex/blob/master/LICENSE) [![Alpine v3.5](https://img.shields.io/badge/alpine-3.5-green.svg?maxAge=2592000)](https://alpinelinux.org/posts/Alpine-3.5.0-released.html)
+[![Build Status][ci-badge]][ci][![MIT License][license-badge]][license][![Alpine][alpine-badge]][alpine]
 
 Comprehensive TeX document production system for use as a continuous integration image.
 
@@ -22,15 +22,48 @@ compile_pdf:
 
 Build tags available with the image `jrbeverly/latex:{TAG}`.
 
-| Tag | Description |
-| --- | ----------- |
-| basic | A basic scheme (plain and latex) image with packages of `scheme-basic`. |
-| context | A ConTeXt scheme image with packages of `scheme-context`. |
-| full | A full scheme (everything) image with packages of `scheme-full`. |
-| gust | A GUST TeX Live scheme image with packages of `scheme-gust`. |
-| medium | A medium scheme (small + more packages and languages) image with packages of `scheme-medium`. |
-| tetex | A teTeX scheme (more than medium, but nowhere near full) image with packages of `scheme-tetex`. |
-| xml | A XML scheme image with packages of `scheme-xml`. |
+<table>
+  <tr>
+    <th width="7%">Tag</th>
+    <th width="10%">Status</th> 
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td><a href="/../tree/scheme-basic">basic</a></td>
+    <td><a href="/../commits/scheme-basic"><img alt="Build Status" src="/../badges/scheme-basic/build.svg"/></a></td>
+    <td>A basic scheme (plain and latex) image with packages of scheme-basic.</td>
+  </tr>
+  <tr>
+    <td><a href="/../tree/scheme-context">context</a></td>
+    <td><a href="/../commits/scheme-context"><img alt="Build Status" src="/../badges/scheme-context/build.svg"/></a></td>
+    <td>A ConTeXt scheme image with packages of scheme-context.</td> 
+  </tr>
+  <tr>
+    <td><a href="/../tree/scheme-full">full</a></td>
+    <td><a href="/../commits/scheme-full"><img alt="Build Status" src="/../badges/scheme-full/build.svg"/></a></td>
+    <td>A full scheme (everything) image with packages of scheme-full.</td> 
+  </tr>
+  <tr>
+    <td><a href="/../tree/scheme-gust">gust</a></td>
+    <td><a href="/../commits/scheme-gust"><img alt="Build Status" src="/../badges/scheme-gust/build.svg"/></a></td>
+    <td>A GUST TeX Live scheme image with packages of scheme-gust.</td>
+  </tr>
+  <tr>
+    <td><a href="/../tree/scheme-medium">medium</a></td>
+    <td><a href="/../commits/scheme-medium"><img alt="Build Status" src="/../badges/scheme-medium/build.svg"/></a></td>
+    <td>A medium scheme (small + more packages and languages) image with packages of scheme-medium.</td>
+  </tr>
+  <tr>
+    <td><a href="/../tree/scheme-tetex">tetex</a></td>
+    <td><a href="/../commits/scheme-tetex"><img alt="Build Status" src="/../badges/scheme-tetex/build.svg"/></a></td>
+    <td>A teTeX scheme (more than medium, but nowhere near full) image with packages of scheme-tetex.</td>
+  </tr>
+  <tr>
+    <td><a href="/../tree/scheme-xml">xml</a></td>
+    <td><a href="/../commits/scheme-xml"><img alt="Build Status" src="/../badges/scheme-xml/build.svg"/></a></td>
+    <td>A XML scheme image with packages of scheme-xml.</td>
+  </tr>
+</table>
 
 ## Build Arguments
 
@@ -57,3 +90,10 @@ Environment variables used in the system.
 | -------- | ------- | ----------- |
 | HOME | / | The pathname of the user's home directory. |
 | PATH | /usr/local/texlive/2016/bin/x86_64-linux | The pathname of the texlive binaries. |
+
+[ci-badge]: /../badges/master/build.svg
+[ci]: /../commits/master
+[license-badge]: https://img.shields.io/badge/license-MIT-blue.svg?maxAge=2592000
+[license]: LICENSE
+[alpine-badge]: https://img.shields.io/badge/alpine-3.5-green.svg?maxAge=2592000
+[alpine]: https://alpinelinux.org/posts/Alpine-3.5.0-released.html
