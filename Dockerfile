@@ -4,8 +4,6 @@ MAINTAINER jrbeverly
 # Build Arguments
 #
 # Arguments used in the build process of the docker container.
-ARG BUILD_DATE
-ARG VERSION
 ARG SCHEME
 
 # Environment Variables
@@ -13,14 +11,6 @@ ARG SCHEME
 # Environment variables present in the docker container.
 ENV PATH=/usr/local/texlive/2016/bin/x86_64-linux:$PATH
 ENV HOME=/
-
-# Metadata
-#
-# The metadata of the image.
-LABEL app="texlive"
-LABEL description="Comprehensive TeX document production system"
-LABEL version="${VERSION}"
-LABEL build_date="${BUILD_DATE}"
 
 # Provision
 #
@@ -37,3 +27,17 @@ VOLUME /media
 #
 # Configuration options of the docker container
 WORKDIR /media
+
+# Metadata Arguments
+#
+# Arguments used in the build process of the docker container.
+ARG BUILD_DATE
+ARG VERSION
+
+# Metadata
+#
+# The metadata of the image.
+LABEL app="texlive"
+LABEL description="Comprehensive TeX document production system"
+LABEL version="${VERSION}"
+LABEL build_date="${BUILD_DATE}"
