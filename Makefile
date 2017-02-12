@@ -1,8 +1,5 @@
-IMAGE := jrbeverly/latex
-VERSION := 1.0.0
-DATE := $(shell date +%Y-%m-%d:%H:%M:%S)
-
-include Makefile.variable
+include Makefile.image.variable
+include Makefile.version.variable
 
 build:
 	docker build \
@@ -10,6 +7,9 @@ build:
 		--build-arg VERSION="${VERSION}" \
 		--build-arg SCHEME="${SCHEME}" \
 		--pull -t ${IMAGE}:${TAG} .
+
+save:
+	docker save --output=image.tar ${IMAGE}:${TAG}
 
 clean:
 	docker rmi --force ${IMAGE}:${TAG}

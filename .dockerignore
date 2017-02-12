@@ -2,8 +2,11 @@
 .gitignore
 .gitlab-ci.yml
 
-README.md
-VERSION
-IMAGE
 LICENSE
+README.md
+
+docker-compose.yml
+
 Makefile
+*.variable
+*.tar

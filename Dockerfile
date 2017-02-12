@@ -9,14 +9,14 @@ ARG SCHEME
 # Environment Variables
 #
 # Environment variables present in the docker container.
-ENV PATH=/usr/local/texlive/2016/bin/x86_64-linux:$PATH
 ENV HOME=/
+ENV PATH=/usr/local/texlive/2016/bin/x86_64-linux:$PATH
 
 # Provision
 #
 # Copy and execute provisioning scripts of the docker container.
 COPY provision/install /tmp/install
-RUN sh /tmp/install; sync; rm -rf /tmp/*
+RUN sh /tmp/install && rm -rf /tmp/*
 
 # Volumes
 #
@@ -27,6 +27,8 @@ VOLUME /media
 #
 # Configuration options of the docker container
 WORKDIR /media
+ENTRYPOINT []
+CMD []
 
 # Metadata Arguments
 #
