@@ -21,7 +21,7 @@ build:
       - image.tar
   only:
     - master
-    - scheme-*
+    - /^scheme-*$/
     
 test:
   stage: test
@@ -34,7 +34,7 @@ test:
     - build
   only:
     - master
-    - scheme-*
+    - /^scheme-*$/
 
 release:
   stage: release
@@ -46,4 +46,4 @@ release:
     - build
   only:
     - master
-    - scheme-*
+    - /^scheme-*$/
