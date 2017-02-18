@@ -1,0 +1,2 @@
+SCHEME := scheme-full
+APP_VERSION := full

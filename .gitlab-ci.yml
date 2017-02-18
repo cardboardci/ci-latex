@@ -4,46 +4,66 @@ services:
   - docker:dind
 
 before_script:
+  - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CONTAINER_REGISTRY
   - apk --no-cache add make
 
 stages:
+  - configure
   - build
   - test
   - release
 
+configure:
+  stage: configure
+  script:
+    - cp Makefile.image.variable copy.variable
+    - sed -i "/REGISTRY.*:=/c\REGISTRY := $CONTAINER_REGISTRY" Makefile.image.variable
+    - sed -i "/NAMESPACE.*:=/c\NAMESPACE := $CI_PROJECT_NAMESPACE" Makefile.image.variable
+    - sed -i "/PROJECT.*:=/c\PROJECT := $CI_PROJECT_NAME" Makefile.image.variable
+    - sed -i "/PROJECT.*:=/c\PROJECT := $CI_PROJECT_NAME" Makefile.image.variable
+    - sed -i "/VCS_REF.*:=/c\VCS_REF := $CI_BUILD_REF" Makefile.metadata.variable
+  artifacts:
+    paths:
+      - "*.variable"
+    expire_in: 2 hours
+  only:
+    - /^scheme-.*$/
+
 build:
   stage: build
   script:
-    - make build
-    - make save
+    - make build && make push
+  dependencies:
+    - configure
   artifacts:
     paths:
-      - image.tar
+      - "*.variable"
+    expire_in: 2 hours
   only:
-    - master
     - /^scheme-.*$/
-    
+
 test:
   stage: test
   script:
-    - echo "No testing at the moment"
-  artifacts:
-    paths:
-      - image.tar
+    - make pull
+    - make test
   dependencies:
     - build
+  artifacts:
+    paths:
+      - "*.variable"
+      - test/*
+    expire_in: 2 hours
   only:
-    - master
     - /^scheme-.*$/
 
 release:
   stage: release
   script:
-    - docker load --input=image.tar
-    - docker login -u $CI_BUILD_USER -p $CI_BUILD_TOKEN
-    - make push
+    - docker login -u $DOCKER_BUILD_USER -p $DOCKER_BUILD_TOKEN
+    - make pull
+    - make deploy
   dependencies:
-    - build
+    - test
   only:
-    - master
     - /^scheme-.*$/
