@@ -1,2 +1,2 @@
-SCHEME := scheme-full
-APP_VERSION := full
+SCHEME := scheme-basic
+APP_VERSION := basic

@@ -23,9 +23,10 @@ You can use this image locally with `docker run`, calling `latexmk` as such:
 docker run -v /media:/media jrbeverly/latex:full latexmk -pdf manual.tex
 ```
 
-It is important to note that it is important to include the tag as such `jrbeverly/latex:{TAG}`.
+You must include the tag for the latex scheme when calling either `docker run` or using in a build job.  This specifies which version of latex you are using.
 
 ### Gitlab
+
 You can add a build job with `.gitlab-ci.yml`
 
 ```yaml
@@ -63,6 +64,9 @@ Build arguments used in the system.
 | VERSION | see [metadata.variable](Makefile.metadata.variable) | The version of the image. |
 | VCS_REF | see [metadata.variable](Makefile.metadata.variable) | The source code commit when the image was built. |
 | SCHEME | see [app.variable](Makefile.app.variable) | The latex scheme to be installed when the image is built. |
+| DUID | see [user.variable](Makefile.user.variable) | The [user id](http://www.linfo.org/uid.html) of the docker user. |
+| DGID | see [user.variable](Makefile.user.variable) | The [group id](http://www.linfo.org/uid.html) of the docker user's group. |
+| USER | see [Makefile](Makefile) | Sets the [user](http://www.linfo.org/uid.html) to use when running the image. |
 
 ### Volumes
 

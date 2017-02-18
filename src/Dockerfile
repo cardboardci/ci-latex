@@ -30,6 +30,19 @@ WORKDIR /media
 ENTRYPOINT []
 CMD []
 
+# User Arguments
+#
+# Arguments used in the user process of the docker container.
+ARG DUID
+ARG DGID
+ARG USER
+
+# User
+#
+# Configuration of the docker user for container execution.
+RUN addgroup -g ${DGID} -S docker && adduser -S -G docker -u ${DUID} docker
+USER ${USER}
+
 # Metadata Arguments
 #
 # Arguments used for the metadata of the docker container.
