@@ -1,5 +1,5 @@
 # Dockerized Latex
-[![Alpine][alpine-badge]][alpine]
+[![Alpine][alpine-badge]][alpine-link]
 [![License][license-badge]][license-link]
 [![build status][build-badge]][build-link]
 
@@ -118,14 +118,14 @@ The notation of the build variables is short form for docker user id (`DUID`) an
 
 [^1]: It is necessary to ensure that the **docker user** (`DUID`) has permission to access volumes. (see [User / Group Identifiers](#user-and-group-mapping)
 
-[build-badge]: https://gitlab.com/jrbeverly-docker/docker-latex/badges/master/build.svg
+[build-badge]: https://img.shields.io/badge/build-pipelines-brightgreen.svg?maxAge=2592000
 [build-link]: https://gitlab.com/jrbeverly-docker/docker-latex/pipelines?scope=branches
 
 [license-badge]: https://images.microbadger.com/badges/license/jrbeverly/rsvg.svg
 [license-link]: https://microbadger.com/images/jrbeverly/rsvg "Get your own license badge on microbadger.com"
 
-[alpine-badge]: https://img.shields.io/badge/alpine-3.5-green.svg?maxAge=2592000
-[alpine]: https://alpinelinux.org/posts/Alpine-3.5.0-released.html
+[alpine-badge]: https://img.shields.io/badge/alpine-3.5-orange.svg?maxAge=2592000
+[alpine-link]: https://alpinelinux.org/posts/Alpine-3.5.0-released.html
 
 [basic-badge]: https://images.microbadger.com/badges/version/jrbeverly/latex:basic.svg
 [basic-image-badge]: https://images.microbadger.com/badges/image/jrbeverly/latex:basic.svg
