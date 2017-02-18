@@ -1,10 +1,8 @@
 include Makefile.app.variable
 include Makefile.metadata.variable
 include Makefile.image.variable
-include Makefile.user.variable
 
 DOCKERFILE := src/.
-TAG := latest
 
 .PHONY: build clean prune push test pull
 
@@ -19,10 +17,10 @@ build:
 		--pull -t ${FULL_NAME}:${APP_VERSION} ${DOCKERFILE}
 
 test:
-	docker run -v $(shell pwd)/test:/media ${FULL_NAME}:${TAG} sh test.sh
+	docker run -v $(shell pwd)/test:/media ${FULL_NAME}:${APP_VERSION} sh test.sh
 
 clean:
-	docker rmi --force ${NAME}:${APP_VERSION} ${NAME}:latest || exit 0
+	docker rmi --force ${NAME}:${APP_VERSION} || exit 0
 
 prune:
 	docker images -q -f dangling=true | xargs --no-run-if-empty docker rmi

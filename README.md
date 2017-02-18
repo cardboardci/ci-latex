@@ -1,5 +1,15 @@
 # Dockerized Latex
-[![MIT License][license-badge]][license][![Alpine][alpine-badge]][alpine]
+[![Alpine][alpine-badge]][alpine]
+[![License][license-badge]][license-link]
+[![build status][build-badge]][build-link]
+
+---
+
+ * [Summary](#summary)
+ * [Usage](#usage)
+ * [Components](#components)
+ * [Build Process](#build-process)
+ * [User and Group Mapping](#user-and-group-mapping)
 
 ## Summary
 
@@ -10,15 +20,17 @@ Comprehensive TeX document production system for use as a continuous integration
 You can use this image locally with `docker run`, calling `latexmk` as such:
 
 ```console
-docker run -v /media:/media jrbeverly/latex latexmk -pdf manual.tex
+docker run -v /media:/media jrbeverly/latex:full latexmk -pdf manual.tex
 ```
+
+It is important to note that it is important to include the tag as such `jrbeverly/latex:{TAG}`.
 
 ### Gitlab
 You can add a build job with `.gitlab-ci.yml`
 
 ```yaml
 compile_pdf:
-  image: jrbeverly/latex
+  image: jrbeverly/latex:full
   script:
     - latexmk -pdf manual.tex
   artifacts:
@@ -30,16 +42,15 @@ compile_pdf:
 
 Build tags available with the image `jrbeverly/latex:{TAG}`.
 
-| Tag | Status | Description |
+| Tag | Details | Description |
 | --- | ------ | ----------- |
-| [master](/../tree/master) | [![build status](/../badges/master/build.svg)](/../commits/master) | A full scheme (everything) image with packages of scheme-full. |
-| [basic](/../tree/scheme-basic) | [![build status](/../badges/scheme-basic/build.svg)](/../commits/scheme-basic) | A basic scheme (plain and latex) image with packages of scheme-basic. |
-| [context](/../tree/scheme-context) | [![build status](/../badges/scheme-context/build.svg)](/../commits/scheme-context) | A ConTeXt scheme image with packages of scheme-context. |
-| [full](/../tree/scheme-full) | [![build status](/../badges/scheme-full/build.svg)](/../commits/scheme-full) | A full scheme (everything) image with packages of scheme-full. |
-| [gust](/../tree/scheme-gust) | [![build status](/../badges/scheme-gust/build.svg)](/../commits/scheme-gust) | A GUST TeX Live scheme image with packages of scheme-gust. |
-| [medium](/../tree/scheme-medium) | [![build status](/../badges/scheme-medium/build.svg)](/../commits/scheme-medium) | A medium scheme (small + more packages and languages) image with packages of scheme-medium. |
-| [tetex](/../tree/scheme-tetex) | [![build status](/../badges/scheme-tetex/build.svg)](/../commits/scheme-tetex) | A teTeX scheme (more than medium, but nowhere near full) image with packages of scheme-tetex. |
-| [xml](/../tree/scheme-xml) | [![build status](/../badges/scheme-xml/build.svg)](/../commits/scheme-xml) | A XML scheme image with packages of scheme-xml. |
+| [![Version basic][basic-badge]][basic-link] | [![Image basic][basic-image-badge]][basic-link] | A basic scheme (plain and latex) image with packages of scheme-basic. |
+| [![Version context][context-badge]][context-link] | [![Image context][context-image-badge]][context-link] | A ConTeXt scheme image with packages of scheme-context. |
+| [![Version full][full-badge]][full-link] | [![Image full][full-image-badge]][full-link]| A full scheme (everything) image with packages of scheme-full. |
+| [![Version gust][gust-badge]][gust-link] | [![Image gust][gust-image-badge]][gust-link] | A GUST TeX Live scheme image with packages of scheme-gust. |
+| [![Version medium][medium-badge]][medium-link] |[![Image medium][medium-image-badge]][medium-link] | A medium scheme (small + more packages and languages) image with packages of scheme-medium. |
+| [![Version tetex][tetex-badge]][tetex-link] | [![Image tetex][tetex-image-badge]][tetex-link] | A teTeX scheme (more than medium, but nowhere near full) image with packages of scheme-tetex. |
+| [![Version xml][xml-badge]][xml-link] | [![Image xml][xml-image-badge]][xml-link] | A XML scheme image with packages of scheme-xml. |
 
 ## Components
 ### Build Arguments
@@ -48,16 +59,18 @@ Build arguments used in the system.
 
 | Variable | Default | Description |
 | -------- | ------- | ----------- |
-| BUILD_DATE | see [`Makefile`](Makefile.image.variable) | The date which the image was built. |
-| VERSION | see [`Makefile`](Makefile.image.variable) | The version of the image. |
+| BUILD_DATE | see [metadata.variable](Makefile.metadata.variable) | The date which the image was built. |
+| VERSION | see [metadata.variable](Makefile.metadata.variable) | The version of the image. |
+| VCS_REF | see [metadata.variable](Makefile.metadata.variable) | The source code commit when the image was built. |
+| SCHEME | see [app.variable](Makefile.app.variable) | The latex scheme to be installed when the image is built. |
 
 ### Volumes
 
-Volumes exposed by the docker container.
+Volumes exposed by the docker container.[^1]
 
 | Volume | Description |
 | --------------------------| ------------- |
-| /media | A directory for making use of latex build |
+| /media | A directory for making use of latex build. |
 
 ### Environment Variables
 
@@ -70,7 +83,7 @@ Environment variables used in the system.
 
 ## Build Process
 
-To build the docker image, use the included makefile.
+To build the docker image, use the included [`Makefile`](Makefile).
 
 ```
 make build
@@ -82,10 +95,58 @@ You can also build the image manually, but it is recommended to use the makefile
 docker build \
 		--build-arg BUILD_DATE="$(date)" \
 		--build-arg VERSION="${VERSION}" \
+		--build-arg ... \
 		--pull -t ${IMAGE}:${TAG} .
 ```
 
-[license-badge]: https://img.shields.io/badge/license-MIT-blue.svg?maxAge=2592000
-[license]: LICENSE
+## User and Group Mapping
+
+All processes within the docker container will be run as the **docker user**, a non-root user.  The **docker user** is created on build with the user id `DUID` and a member of a group with group id `DGID`.  
+
+Any permissions on the host operating system (OS) associated with either the user (`DUID`) or group (`DGID`) will be associated with the docker container.  The values of `DUID` and `DGID` are visible in the [Build Arguments](#build-arguments), and can be accessed by the the command:
+
+```console
+docker inspect -f '{{ index .Config.Labels "io.gitlab.jrbeverly.user" }}' IMAGE
+docker inspect -f '{{ index .Config.Labels "io.gitlab.jrbeverly.group" }}' IMAGE
+```
+
+The notation of the build variables is short form for docker user id (`DUID`) and docker group id (`DGID`). 
+
+[^1]: It is necessary to ensure that the **docker user** (`DUID`) has permission to access volumes. (see [User / Group Identifiers](#user-and-group-mapping)
+
+[build-badge]: https://gitlab.com/jrbeverly-docker/docker-latex/badges/master/build.svg
+[build-link]: https://gitlab.com/jrbeverly-docker/docker-latex/commits/master
+
+[license-badge]: https://images.microbadger.com/badges/license/jrbeverly/rsvg.svg
+[license-link]: https://microbadger.com/images/jrbeverly/rsvg "Get your own license badge on microbadger.com"
+
 [alpine-badge]: https://img.shields.io/badge/alpine-3.5-green.svg?maxAge=2592000
 [alpine]: https://alpinelinux.org/posts/Alpine-3.5.0-released.html
+
+[basic-badge]: https://images.microbadger.com/badges/version/jrbeverly/latex:basic.svg
+[basic-image-badge]: https://images.microbadger.com/badges/image/jrbeverly/latex:basic.svg
+[basic-link]: https://microbadger.com/images/jrbeverly/latex:basic "Get your own version badge on microbadger.com"
+
+[context-badge]: https://images.microbadger.com/badges/version/jrbeverly/latex:context.svg
+[context-image-badge]: https://images.microbadger.com/badges/image/jrbeverly/latex:context.svg
+[context-link]: https://microbadger.com/images/jrbeverly/latex:context "Get your own version badge on microbadger.com"
+
+[full-badge]: https://images.microbadger.com/badges/version/jrbeverly/latex:full.svg
+[full-image-badge]: https://images.microbadger.com/badges/image/jrbeverly/latex:full.svg
+[full-link]: https://microbadger.com/images/jrbeverly/latex:full "Get your own version badge on microbadger.com"
+
+[gust-badge]: https://images.microbadger.com/badges/version/jrbeverly/latex:gust.svg
+[gust-image-badge]: https://images.microbadger.com/badges/image/jrbeverly/latex:gust.svg
+[gust-link]: https://microbadger.com/images/jrbeverly/latex:gust "Get your own version badge on microbadger.com"
+
+[medium-badge]: https://images.microbadger.com/badges/version/jrbeverly/latex:medium.svg
+[medium-image-badge]: https://images.microbadger.com/badges/image/jrbeverly/latex:medium.svg
+[medium-link]: https://microbadger.com/images/jrbeverly/latex:medium "Get your own version badge on microbadger.com"
+
+[tetex-badge]: https://images.microbadger.com/badges/version/jrbeverly/latex:tetex.svg
+[tetex-image-badge]: https://images.microbadger.com/badges/image/jrbeverly/latex:tetex.svg
+[tetex-link]: https://microbadger.com/images/jrbeverly/latex:tetex "Get your own version badge on microbadger.com"
+
+[xml-badge]: https://images.microbadger.com/badges/version/jrbeverly/latex:xml.svg
+[xml-image-badge]: https://images.microbadger.com/badges/image/jrbeverly/latex:xml.svg
+[xml-link]: https://microbadger.com/images/jrbeverly/latex:xml "Get your own version badge on microbadger.com"

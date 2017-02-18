@@ -20,12 +20,12 @@ RUN sh /tmp/install && rm -rf /tmp/*
 
 # Volumes
 #
-# Volumes exposed by the docker container
+# Volumes exposed by the docker container.
 VOLUME /media
 
 # Options
 #
-# Configuration options of the docker container
+# Configuration options of the docker container.
 WORKDIR /media
 ENTRYPOINT []
 CMD []
