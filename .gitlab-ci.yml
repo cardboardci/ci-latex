@@ -58,7 +58,7 @@ build_privileged:
 test:
   stage: test
   script:
-    - make pull
+    - make get
     - make test
   dependencies:
     - build_baseimage

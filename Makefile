@@ -40,8 +40,11 @@ clean:
 prune:
 	docker images -q -f dangling=true | xargs --no-run-if-empty docker rmi
 
-pull:
+get:
 	docker pull ${FULL_NAME}:${APP_VERSION}
+
+pull:
+	docker pull --all-tags ${FULL_NAME}
 
 push:
 	docker push ${FULL_NAME}
