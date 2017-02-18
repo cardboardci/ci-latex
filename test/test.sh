@@ -1,4 +1,7 @@
 #!/bin/sh
 set -ex
 
-echo "Success!"
+tex --version
+
+latex small2e.tex
+latex sample2e.tex
