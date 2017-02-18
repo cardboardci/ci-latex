@@ -119,7 +119,7 @@ The notation of the build variables is short form for docker user id (`DUID`) an
 [^1]: It is necessary to ensure that the **docker user** (`DUID`) has permission to access volumes. (see [User / Group Identifiers](#user-and-group-mapping)
 
 [build-badge]: https://gitlab.com/jrbeverly-docker/docker-latex/badges/master/build.svg
-[build-link]: https://gitlab.com/jrbeverly-docker/docker-latex/commits/master
+[build-link]: https://gitlab.com/jrbeverly-docker/docker-latex/pipelines?scope=branches
 
 [license-badge]: https://images.microbadger.com/badges/license/jrbeverly/rsvg.svg
 [license-link]: https://microbadger.com/images/jrbeverly/rsvg "Get your own license badge on microbadger.com"
