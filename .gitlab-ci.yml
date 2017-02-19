@@ -54,7 +54,7 @@ build-privileged:
 test:
   stage: test
   script:
-    - make get
+    - make get-base
     - make test
   dependencies:
     - build-base
