@@ -63,7 +63,7 @@ LABEL \
     org.label-schema.vcs-type="Git" \
     org.label-schema.vcs-ref="${VCS_REF}" \
     org.label-schema.vcs-url="https://gitlab.com/jrbeverly-docker/docker-latex.git" \
-    org.label-schema.ci-build-url="https://gitlab.com/jrbeverly-docker/docker-latex/commits/master" \
+    org.label-schema.ci-build-url="https://gitlab.com/jrbeverly-docker/docker-latex/pipelines?scope=branches" \
     org.label-schema.version="${VERSION}" \
     org.label-schema.build-date="${BUILD_DATE}" \
     io.gitlab.jrbeverly.user="${DUID}" \

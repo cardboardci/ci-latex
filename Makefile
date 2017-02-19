@@ -5,10 +5,12 @@ include Makefile.user.variable
 
 DOCKERFILE := src/.
 
-CONTAINER := ${FULL_NAME}:${APP_VERSION}
-CONTAINER_ROOT := ${FULL_NAME}:${APP_VERSION}-privileged
+BASE_TAG := ${APP_VERSION}
+ROOT_TAG := ${APP_VERSION}-privileged
+CONTAINER := ${FULL_NAME}:${BASE_TAG}
+CONTAINER_ROOT := ${FULL_NAME}:${ROOT_TAG}
 
-.PHONY: baseimage privileged clean prune push test pull
+.PHONY: baseimage privileged test clean prune get-base get-privileged pull push deploy path
 
 default: all
 
@@ -43,8 +45,11 @@ clean:
 prune:
 	docker images -q -f dangling=true | xargs --no-run-if-empty docker rmi
 
-get:
+get-base:
 	docker pull ${CONTAINER}
+
+get-privileged:
+	docker pull ${CONTAINER_ROOT}
 
 pull:
 	docker pull ${CONTAINER}
@@ -54,8 +59,8 @@ push:
 	docker push ${FULL_NAME}
 
 deploy:
-	docker tag ${CONTAINER} ${RELEASE}:${APP_VERSION}
-	docker tag ${CONTAINER_ROOT} ${RELEASE}:${APP_VERSION}-privileged
+	docker tag ${CONTAINER} ${RELEASE}:${BASE_TAG}
+	docker tag ${CONTAINER_ROOT} ${RELEASE}:${ROOT_TAG}
 	docker push ${RELEASE}
 
 all: baseimage privileged

@@ -9,7 +9,6 @@ set -e
 VAR_IMAGE="Makefile.image.variable"
 VAR_METADATA="Makefile.metadata.variable"
 
-
 # Preconfig Functions
 #
 # Functions used to preconfigure the build process.
@@ -51,7 +50,7 @@ metadata () {
     while getopts "h?:c:" opt; do
         case $opt in
             h|\?)
-                echo "Usage: $0 metadata -r REGISTRY -n NAMESPACE -p PROJECT"
+                echo "Usage: $0 metadata -c VCS_REF"
                 echo
                 echo "Sets the metadata contents of the build process." 
                 exit 0

@@ -25,10 +25,23 @@ configure:
   only:
     - /^scheme-.*$/
 
-build:
+build-base:
   stage: build
   script:
-    - make all && make push
+    - make baseimage && make push
+  dependencies:
+    - configure
+  artifacts:
+    paths:
+      - "*.variable"
+    expire_in: 2 hours
+  only:
+    - /^scheme-.*$/
+
+build-privileged:
+  stage: build
+  script:
+    - make privileged && make push
   dependencies:
     - configure
   artifacts:
@@ -44,7 +57,8 @@ test:
     - make get
     - make test
   dependencies:
-    - build
+    - build-base
+    - build-privileged
   artifacts:
     paths:
       - "*.variable"
