@@ -5,7 +5,7 @@ cd /tmp/
 URL=http://ctan.sharelatex.com/tex-archive/systems/texlive/tlnet/install-tl-unx.tar.gz
 FILE=/tmp/install-tl-unx.tar.gz
 
-apk --no-cache -U add gnupg perl wget
+apk --update --no-cache add gnupg perl wget
 apk --update add --virtual build-dependencies tar xz fontconfig-dev 
 
 mkdir texlive 

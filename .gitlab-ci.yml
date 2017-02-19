@@ -16,12 +16,8 @@ stages:
 configure:
   stage: configure
   script:
-    - cp Makefile.image.variable copy.variable
-    - sed -i "/REGISTRY.*:=/c\REGISTRY := $CONTAINER_REGISTRY" Makefile.image.variable
-    - sed -i "/NAMESPACE.*:=/c\NAMESPACE := $CI_PROJECT_NAMESPACE" Makefile.image.variable
-    - sed -i "/PROJECT.*:=/c\PROJECT := $CI_PROJECT_NAME" Makefile.image.variable
-    - sed -i "/PROJECT.*:=/c\PROJECT := $CI_PROJECT_NAME" Makefile.image.variable
-    - sed -i "/VCS_REF.*:=/c\VCS_REF := $CI_BUILD_REF" Makefile.metadata.variable
+    - sh configure init -r $CONTAINER_REGISTRY -n $CI_PROJECT_NAMESPACE -p $CI_PROJECT_NAME
+    - sh configure metadata -c $CI_BUILD_REF
   artifacts:
     paths:
       - "*.variable"
@@ -29,23 +25,10 @@ configure:
   only:
     - /^scheme-.*$/
 
-build_baseimage:
+build:
   stage: build
   script:
-    - make baseimage && make push
-  dependencies:
-    - configure
-  artifacts:
-    paths:
-      - "*.variable"
-    expire_in: 2 hours
-  only:
-    - /^scheme-.*$/
-
-build_privileged:
-  stage: build
-  script:
-    - make privileged && make push
+    - make all && make push
   dependencies:
     - configure
   artifacts:
@@ -61,8 +44,7 @@ test:
     - make get
     - make test
   dependencies:
-    - build_baseimage
-    - build_privileged
+    - build
   artifacts:
     paths:
       - "*.variable"

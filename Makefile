@@ -5,6 +5,9 @@ include Makefile.user.variable
 
 DOCKERFILE := src/.
 
+CONTAINER := ${FULL_NAME}:${APP_VERSION}
+CONTAINER_ROOT := ${FULL_NAME}:${APP_VERSION}-privileged
+
 .PHONY: baseimage privileged clean prune push test pull
 
 default: all
@@ -18,7 +21,7 @@ baseimage:
 		--build-arg DUID="${DUID}" \
 		--build-arg DGID="${DGID}" \
 		--build-arg USER="docker" \
-		--pull -t ${FULL_NAME}:${APP_VERSION} ${DOCKERFILE}
+		--pull -t ${CONTAINER} ${DOCKERFILE}
 
 privileged:
 	docker build \
@@ -29,29 +32,30 @@ privileged:
 		--build-arg DUID="${DUID}" \
 		--build-arg DGID="${DGID}" \
 		--build-arg USER="root" \
-		--pull -t ${FULL_NAME}:${APP_VERSION}-privileged ${DOCKERFILE}
+		--pull -t ${CONTAINER_ROOT} ${DOCKERFILE}
 
 test:
-	docker run -v $(shell pwd)/test:/media ${FULL_NAME}:${APP_VERSION} sh test.sh
+	docker run -v $(shell pwd)/test:/media ${CONTAINER} sh test.sh
 
 clean:
-	docker rmi --force ${NAME}:${APP_VERSION} ${NAME}:${APP_VERSION}-privileged  || exit 0
+	docker rmi --force ${CONTAINER} ${CONTAINER_ROOT} || exit 0
 
 prune:
 	docker images -q -f dangling=true | xargs --no-run-if-empty docker rmi
 
 get:
-	docker pull ${FULL_NAME}:${APP_VERSION}
+	docker pull ${CONTAINER}
 
 pull:
-	docker pull --all-tags ${FULL_NAME}
+	docker pull ${CONTAINER}
+	docker pull ${CONTAINER_ROOT}
 
 push:
 	docker push ${FULL_NAME}
 
 deploy:
-	docker tag ${FULL_NAME}:${APP_VERSION} ${RELEASE}:${APP_VERSION}
-	docker tag ${FULL_NAME}:${APP_VERSION}-privileged ${RELEASE}:${APP_VERSION}-privileged
+	docker tag ${CONTAINER} ${RELEASE}:${APP_VERSION}
+	docker tag ${CONTAINER_ROOT} ${RELEASE}:${APP_VERSION}-privileged
 	docker push ${RELEASE}
 
-all: baseimage
+all: baseimage privileged
