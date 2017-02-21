@@ -6,12 +6,12 @@ URL=http://ctan.sharelatex.com/tex-archive/systems/texlive/tlnet/install-tl-unx.
 FILE=/tmp/install-tl-unx.tar.gz
 
 apk --update --no-cache add gnupg perl wget
-apk --update add --virtual build-dependencies tar xz fontconfig-dev 
+apk --update add --virtual build-dependencies tar xz fontconfig-dev curl
 
 mkdir texlive 
 cd texlive
 
-wget -qO- $URL | tar -xz -C /tmp/texlive --strip-components=1
+curl -sSL ${URL} | tar xfz - -C . --strip-components=1
 echo "selected_scheme ${SCHEME}" >> texlive.profile
 echo "option_doc 0" >> texlive.profile
 echo "option_src 0" >> texlive.profile

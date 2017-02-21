@@ -10,7 +10,7 @@ ROOT_TAG := ${APP_VERSION}-privileged
 CONTAINER := ${FULL_NAME}:${BASE_TAG}
 CONTAINER_ROOT := ${FULL_NAME}:${ROOT_TAG}
 
-.PHONY: baseimage privileged test clean prune get-base get-privileged pull push deploy path
+.PHONY: baseimage privileged test clean prune get-base get-privileged pull push deploy
 
 default: all
 
