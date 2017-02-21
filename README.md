@@ -9,6 +9,7 @@
  * [Usage](#usage)
  * [Components](#components)
  * [Build Process](#build-process)
+ * [Labels](#labels)
  * [User and Group Mapping](#user-and-group-mapping)
 
 ## Summary
