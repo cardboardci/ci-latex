@@ -141,7 +141,7 @@ The notation of the build variables is short form for docker user id (`DUID`) an
 [license-link]: https://microbadger.com/images/jrbeverly/latex "Get your own license badge on microbadger.com"
 
 [image-badge]: https://img.shields.io/badge/alpine-3.5-orange.svg?maxAge=2592000
-[image-link]: https://hub.docker.com/r/library/alpine/
+[image-link]: https://hub.docker.com/r/frolvlad/alpine-glibc/
 
 [basic-badge]: https://images.microbadger.com/badges/version/jrbeverly/latex:basic.svg
 [basic-image-badge]: https://images.microbadger.com/badges/image/jrbeverly/latex:basic.svg
