@@ -9,6 +9,7 @@
  * [Usage](#usage)
  * [Components](#components)
  * [Build Process](#build-process)
+ * [Labels](#labels)
  * [User and Group Mapping](#user-and-group-mapping)
 
 ## Summary
@@ -131,13 +132,13 @@ docker inspect -f '{{ index .Config.Labels "io.gitlab.jrbeverly.group" }}' IMAGE
 
 The notation of the build variables is short form for docker user id (`DUID`) and docker group id (`DGID`). 
 
-[^1]: It is necessary to ensure that the **docker user** (`DUID`) has permission to access volumes. (see [User / Group Identifiers](#user-and-group-mapping)
+[^1]: It is necessary to ensure that the **docker user** (`DUID`) has permission to access volumes. (see [User / Group Identifiers](#user-and-group-mapping))
 
 [build-badge]: https://img.shields.io/badge/build-pipelines-brightgreen.svg?maxAge=2592000
 [build-link]: https://gitlab.com/jrbeverly-docker/docker-latex/pipelines?scope=branches
 
-[license-badge]: https://images.microbadger.com/badges/license/jrbeverly/rsvg.svg
-[license-link]: https://microbadger.com/images/jrbeverly/rsvg "Get your own license badge on microbadger.com"
+[license-badge]: https://images.microbadger.com/badges/license/jrbeverly/latex.svg
+[license-link]: https://microbadger.com/images/jrbeverly/latex "Get your own license badge on microbadger.com"
 
 [image-badge]: https://img.shields.io/badge/alpine-3.5-orange.svg?maxAge=2592000
 [image-link]: https://hub.docker.com/r/library/alpine/
