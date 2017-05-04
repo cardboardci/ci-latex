@@ -2,9 +2,15 @@
 set -ex
 cd /tmp/
 
+# Variables
+#
+# The variables used in the installation of texlive.
 URL=http://ctan.sharelatex.com/tex-archive/systems/texlive/tlnet/install-tl-unx.tar.gz
 FILE=/tmp/install-tl-unx.tar.gz
 
+# Installing texlive
+#
+# Installs texlive scheme package.
 apk --update --no-cache add gnupg perl wget
 apk --update add --virtual build-dependencies tar xz fontconfig-dev curl
 

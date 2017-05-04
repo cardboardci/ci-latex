@@ -1,0 +1,2 @@
+export SCHEME=scheme-xml
+export TAG=xml

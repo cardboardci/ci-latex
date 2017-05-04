@@ -1,0 +1,1 @@
+A minimal Docker image based on Alpine Linux with the comprehensive TeX document production system for use as a continuous integration image.
