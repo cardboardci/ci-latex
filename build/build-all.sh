@@ -17,5 +17,5 @@ do
 	echo "Building: $filename"
     
     cd $DIR
-    make VERSION=${filename} build
+    make TAG=${filename} all
 done
