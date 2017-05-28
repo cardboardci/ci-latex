@@ -1,23 +1,22 @@
-FROM frolvlad/alpine-glibc
+FROM jrbeverly/glibc:privileged
 MAINTAINER jrbeverly
 
 # Build Arguments
 #
 # Arguments used in the build process of the docker container.
 ARG SCHEME
+ARG TEXLIVE_URL
 
 # Environment Variables
 #
 # Environment variables present in the docker container.
-ENV \
-    HOME=/ \
-    PATH=/usr/local/texlive/2016/bin/x86_64-linux:$PATH
+ENV PATH=/usr/local/texlive/bin/x86_64-linux:$PATH
 
 # Provision
 #
 # Copy and execute provisioning scripts of the docker container.
-COPY provision/install /tmp/install
-RUN sh /tmp/install && rm -rf /tmp/*
+COPY provision/install.sh /tmp/install.sh
+RUN sh /tmp/install.sh && rm -rf /tmp/*
 
 # Volumes
 #
@@ -34,14 +33,11 @@ CMD []
 # User Arguments
 #
 # Arguments used in the user process of the docker container.
-ARG DUID
-ARG DGID
 ARG USER
 
 # User
 #
 # Configuration of the docker user for container execution.
-RUN addgroup -g ${DGID} -S docker && adduser -S -G docker -u ${DUID} docker
 USER ${USER}
 
 # Metadata Arguments
@@ -63,8 +59,4 @@ LABEL \
     org.label-schema.vcs-type="Git" \
     org.label-schema.vcs-ref=$VCS_REF \
     org.label-schema.vcs-url="https://gitlab.com/jrbeverly-docker/docker-latex.git" \
-    org.label-schema.vendor="jrbeverly" \
-    org.label-schema.version=$VERSION \
-    org.label-schema.schema-version="1.0" \
-    io.gitlab.jrbeverly.user="${DUID}" \
-    io.gitlab.jrbeverly.group="${DGID}"
+    org.label-schema.version=$VERSION 
