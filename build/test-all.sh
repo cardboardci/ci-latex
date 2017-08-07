@@ -15,7 +15,5 @@ VERSIONS_DIR="${ROOT_DIR}/versions"
 for dirname in $(ls -d $VERSIONS_DIR/*/); 
 do 
   version=$(basename $dirname); 
-  make -s -C "${BUILD_DIR}" VERSION=${version} pull
-  make -s -C "${BUILD_DIR}" VERSION=${version} release
-  make -s -C "${BUILD_DIR}" VERSION=${version} push
+  make -s -C "${BUILD_DIR}" VERSION=${version} test
 done

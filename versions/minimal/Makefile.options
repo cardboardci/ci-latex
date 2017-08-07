@@ -1,0 +1,11 @@
+# Image
+TAG := minimal
+
+# Build Args
+USER := docker
+SCHEME=scheme-minimal
+BUILD_PARAMS := --build-arg USER="${USER}" --build-arg SCHEME="${SCHEME}"
+
+# Filepath
+PATH_DOCKER := $(PATH_ROOT)/src
+PATH_DOCKERFILE := $(PATH_DOCKER)/Dockerfile

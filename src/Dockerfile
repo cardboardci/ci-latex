@@ -1,62 +1,68 @@
 FROM jrbeverly/glibc:privileged
-MAINTAINER jrbeverly
 
+#
 # Build Arguments
 #
-# Arguments used in the build process of the docker container.
 ARG SCHEME
 ARG TEXLIVE_URL
 
+#
 # Environment Variables
 #
-# Environment variables present in the docker container.
 ENV PATH=/usr/local/texlive/bin/x86_64-linux:$PATH
 
+#
 # Provision
 #
-# Copy and execute provisioning scripts of the docker container.
+COPY rootfs/ /
+
 COPY provision/install.sh /tmp/install.sh
-RUN sh /tmp/install.sh && rm -rf /tmp/*
+RUN sh /tmp/install.sh && rm -f /tmp/install.sh
 
-# Volumes
-#
-# Volumes exposed by the docker container.
-VOLUME /media
-
+# 
 # Options
-#
-# Configuration options of the docker container.
+# 
 WORKDIR /media
 ENTRYPOINT []
 CMD []
 
-# User Arguments
 #
-# Arguments used in the user process of the docker container.
-ARG USER
-
 # User
 #
-# Configuration of the docker user for container execution.
-USER ${USER}
+ARG USER
+USER $USER
 
+#
 # Metadata Arguments
 #
-# Arguments used for the metadata of the docker container.
 ARG BUILD_DATE
 ARG VERSION
 ARG VCS_REF
 
-# Metadata 
+# Metadata
 #
-# The metadata of the image.
 LABEL \
-    org.label-schema.build-date=$BUILD_DATE \
+    maintainer="jrbeverly" \
+    \
     org.label-schema.name="texlive" \
+    org.label-schema.summary="An alpine image with different texlive schemes installed." \
     org.label-schema.description="Comprehensive TeX document production system." \
+    org.label-schema.maintainer="jrbeverly" \
+    org.label-schema.build-date=$BUILD_DATE \
+    org.label-schema.version=$VERSION \
     org.label-schema.url="https://www.tug.org/texlive/" \
     org.label-schema.license="MIT" \
     org.label-schema.vcs-type="Git" \
     org.label-schema.vcs-ref=$VCS_REF \
-    org.label-schema.vcs-url="https://gitlab.com/jrbeverly-docker/docker-latex.git" \
-    org.label-schema.version=$VERSION 
+    org.label-schema.vcs-url="https://gitlab.com/jrbeverly-docker/docker-latex" \
+    org.label-schema.docker.cmd="docker run -v $(pwd):/media/ jrbeverly/latex:baseimage latexmk -pdf manual.tex" \
+    \
+    io.jrbeverly.project="latex" \
+    io.jrbeverly.summary="A docker image with texlive $SCHEME installed, running as the $USER user." \
+    io.jrbeverly.latex.meta.BUILD_DATE="The Date/Time the image was built." \
+    io.jrbeverly.latex.meta.VERSION="Release identifier for the contents of the image." \
+    io.jrbeverly.latex.meta.VCS_REF="Identifier for the version of the source code from which this image was built." \
+    io.jrbeverly.latex.args.USER="Sets the [user](http://www.linfo.org/uid.html) to use when running the image." \
+    io.jrbeverly.latex.args.SCHEME="The texlive scheme to be installed." \
+    io.jrbeverly.latex.args.TEXLIVE_URL="The URL to the texlive base installer (install-tl)." \
+    io.jrbeverly.latex.volume.media="/media/|The default working directory of the image."
