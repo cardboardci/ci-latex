@@ -2,14 +2,14 @@
 set -ex
 cd /tmp/
 
+# 
 # Variables
 #
-# The variables used in the installation of texlive.
 FILE=/tmp/install-tl-unx.tar.gz
 
+# 
 # Installing texlive
 #
-# Installs texlive scheme package.
 apk --update --no-cache add gnupg perl wget
 apk add --virtual build-dependencies tar xz fontconfig-dev curl
 

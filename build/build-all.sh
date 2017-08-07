@@ -1,21 +1,19 @@
 #!/bin/sh
-set -e
 
+#
 # Variables
 #
-# Variables of the script.
 SCRIPT=$(readlink -f "$0")
 DIR="$(dirname $SCRIPT)"
 ROOT_DIR="$(dirname $DIR)"
+BUILD_DIR="${ROOT_DIR}/build"
+VERSIONS_DIR="${ROOT_DIR}/versions"
 
-# Build
 #
-# Build the images.
-cd $ROOT_DIR/versions
-for filename in *
-do
-	echo "Building: $filename"
-    
-    cd $DIR
-    make TAG=${filename} all
+# Executing
+#
+for dirname in $(ls -d $VERSIONS_DIR/*/); 
+do 
+  version=$(basename $dirname); 
+  make -s -C "${BUILD_DIR}" VERSION=${version} build
 done
