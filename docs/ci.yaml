@@ -1,7 +1,0 @@
-build:
-  image: jrbeverly/latex:full
-  script:
-    - latexmk -pdf manual.tex
-  artifacts:
-    paths:
-      - manual.pdf
