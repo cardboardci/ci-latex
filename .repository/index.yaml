@@ -1,0 +1,18 @@
+slug: ci-latex
+description: '[DEPRECATED] Comprehensive TeX document production system for use as a continuous integration image.'
+project: cardboardci
+namespace: ci
+status: archived
+icon: icon.svg
+license:
+  type: MIT
+  content: Jonathan Beverly <jrbeverly>
+  year: 2017
+topics: |-
+  [
+    "docker",
+    "docker-ci-images",
+    "tex",
+    "latex",
+    "alpine"
+  ]
